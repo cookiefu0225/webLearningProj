@@ -19,6 +19,10 @@
             padding: 1em;
             font-size: 80%;
         }
+
+        .redText {
+            color: red;
+        }
     </style>
 
 </head>
@@ -65,17 +69,29 @@
             </div>
         </div>
         
-        <form action="" method="get">
+        <form action="" method="get" class="needs-validation" novalidate>
             <div class="row">
                 <div class="col mb-3">
                     <label for="start_date" class="form-label">Starting Date</label>
                     <input required type="date" class="form-control" id="start_date" name="start_date" aria-describedby="startDateHelp">
                     <div id="startDateHelp" class="form-text">Enter your start date in MM/DD/YYYY.</div>
+                    <div class="valid-feedback">
+                        Good date!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please choose a valid date.
+                    </div>
                 </div>
                 <div class="col mb-3">
                     <label for="end_date" class="form-label">Ending Date</label>
                     <input required type="date" class="form-control" id="end_date" name="end_date" aria-describedby="endDateHelp">
                     <div id="endDateHelp" class="form-text">Enter your end date in MM/DD/YYYY.</div>
+                    <div class="valid-feedback">
+                        Good date
+                    </div>
+                    <div class="invalid-feedback">
+                        Please choose a valid date.
+                    </div>
                 </div>
             </div>
 
@@ -87,7 +103,15 @@
             </div>
         </form>
            
-        
+        <div class="row">
+            <div class="col">
+                <p id="myParagragh">
+                    This is a text paragragh.
+                </p>
+
+                <button type="button" id="changer" class="btn btn-primary">color changer</button>
+            </div>
+        </div>
 
     </div>
 
@@ -111,7 +135,37 @@
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" 
     crossorigin="anonymous"></script>
     
+    <script>
+        console.log("I am printing from javascript");
 
+        
+        // myEl.classList.add("redText");
+
+        document.getElementById("changer").addEventListener("click", function() {
+            let myEl = document.getElementById("myParagragh");
+
+            if (!myEl.classList.contains("redText")) {
+                myEl.classList.add("redText");
+            } else {
+                myEl.classList.remove("redText");
+            }
+        })
+
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+            }, false)
+        })
+        
+    </script>
     
 </body>
 </html>
