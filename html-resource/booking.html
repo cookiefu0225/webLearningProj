@@ -11,6 +11,7 @@
     crossorigin="anonymous">
     <link rel="stylesheet" 
     href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker-bs5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
     
     <style>
         .my-footer {
@@ -22,9 +23,9 @@
             font-size: 80%;
         }
 
-        .redText {
-            color: red;
-        }
+        /* .notie-container {
+            box-shadow: none;
+        } */
     </style>
 
 </head>
@@ -141,24 +142,20 @@
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" 
     crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
-    
-    <script>
-        console.log("I am printing from javascript");
+    <script src="https://unpkg.com/notie"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        
-        // myEl.classList.add("redText");
+    <script>
+        let attention = prompt();
 
         document.getElementById("changer").addEventListener("click", function() {
-            let myEl = document.getElementById("myParagragh");
-
-            if (!myEl.classList.contains("redText")) {
-                myEl.classList.add("redText");
-            } else {
-                myEl.classList.remove("redText");
-            }
+            attention.success({
+                msg: "Hello, world",
+                text: "texts are here"
+            });
         })
 
-        const forms = document.querySelectorAll('.needs-validation')
+        const forms = document.querySelectorAll('.needs-validation') 
 
         // Loop over them and prevent submission
         Array.from(forms).forEach(form => {
@@ -176,6 +173,57 @@
         const rangepicker = new DateRangePicker(elem, {
             format: "yyyy-mm-dd",
         }); 
+
+        // msgType = ['success', 'warning', 'error', 'info', 'neutral']
+        function notifier(msg, msgType) {
+            notie.alert({
+                type: msgType,
+                text: msg
+            })
+        }
+
+        function prompt() {
+            let toast = function(customize) {
+                const {
+                    msg = "",
+                    position = "top-end",
+                    icon = "success",
+                } = customize;
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: position,
+                    icon: icon,
+                    title: msg,
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({})
+            }
+
+            let success = function(customize) {
+                const {
+                    msg = "",
+                    text = "",
+                } = customize;
+                Swal.fire({
+                    icon: "success",
+                    title: msg,
+                    text: text
+                })
+            }
+
+            return {
+                toast: toast,
+                success: success,
+            }
+        }
         
     </script>
     

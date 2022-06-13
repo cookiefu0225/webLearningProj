@@ -6,3 +6,8 @@ This is a repository for my practicing booking reservation project.
 - Use the [chi](https://github.com/go-chi/chi/v5) router
 - Use [alex edwards](https://github.com/alexedwards/scs/v2) SCS session management
 - Use [nosurf](https://github.com/justinas/nosurf)
+
+## HTML module usage
+
+- [Notie](https://github.com/jaredreich/notie)
+- [SweetAlert](https://sweetalert2.github.io)
