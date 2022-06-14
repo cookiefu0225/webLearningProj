@@ -9,7 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" 
     crossorigin="anonymous">
-    
+    <!-- Date Range Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker-bs5.min.css">
+
     <style>
         .my-footer {
             background-color: #7d7d7d;
@@ -23,6 +25,8 @@
         .room-image {
             max-width: 50%;
         }
+
+        
     </style>
 
 </head>
@@ -85,7 +89,7 @@
 
         <div class="row">
             <div class="col text-center mt-1">
-                <a href="/make-reservation-gq" class="btn btn-info">Check Availible Rooms</a>
+                <button type="button" class="btn btn-secondary" id="check-availability">Check Available Rooms</button>
             </div>
         </div>
     </div>
@@ -109,6 +113,87 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" 
     crossorigin="anonymous"></script>
+    <!-- Date Range Picker -->
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
+    <!-- Sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      let btn = document.getElementById("check-availability");
+
+      btn.addEventListener("click", function() {
+        let html = `
+          <form action="" method="post" class="needs-validation" novalidate>
+              <div class="row" id="reservation-date">
+                  <div class="col mb-3">
+                      <label for="start" class="form-label">Starting Date</label>
+                      <input disabled required type="text" class="form-control" id="start" name="start" placeholder="Arrival">
+                  </div>
+                  <div class="col mb-3">
+                      <label for="end" class="form-label">Ending Date</label>
+                      <input disabled required type="text" class="form-control" id="end" name="end" placeholder="Departure">
+                  </div>
+              </div>
+          </div>
+        `;
+        
+        let attention = prompt();
+        attention.costume({
+          msg: html,
+          title: "Select Date"
+        })
+
+      })
+
+
+      function prompt() {
+        
+
+        async function costume(c) {
+          const {
+            msg = "",
+            title = "",
+
+          } = c;
+
+          const { value: formValues } = await Swal.fire({
+            title: title,
+            html: msg,
+            backdrop: false,
+            focusConfirm: false,
+            showCancelButton: true,
+            willOpen: () => {
+              const elem = document.getElementById('reservation-date');
+              const rangepicker = new DateRangePicker(elem, {
+                  format: "yyyy-mm-dd",
+                  orientation: "auto top",
+              }); 
+            },
+            preConfirm: () => {
+              return [
+                document.getElementById('start').value,
+                document.getElementById('end').value
+              ]
+            },
+            didOpen: () => {
+              document.getElementById("start").removeAttribute("disabled");
+              document.getElementById("end").removeAttribute("disabled");
+            },
+          })
+
+          if (formValues) {
+            Swal.fire(JSON.stringify(formValues))
+          }
+        }
+
+        return {
+          costume: costume,
+        }
+      }
+
+
+
+    </script>
     
 
     

@@ -10,4 +10,7 @@ This is a repository for my practicing booking reservation project.
 ## HTML module usage
 
 - [Notie](https://github.com/jaredreich/notie)
+
 - [SweetAlert](https://sweetalert2.github.io)
+
+- [Vanilla JS Datepicker](https://github.com/mymth/vanillajs-datepicker)
